@@ -235,6 +235,8 @@ lazy val `mill-plugin` = myCrossProject("mill-plugin")
     libraryDependencies += Dependencies.millScalalib.value % Provided,
     scalacOptions -= "-Xfatal-warnings"
   )
+  .settings(noPublishSettings)
+
 
 /// settings
 
@@ -336,6 +338,13 @@ lazy val dockerSettings = Def.settings(
 
 lazy val noPublishSettings = Def.settings(
   publish / skip := true
+)
+
+lazy val publishToKlarrioSettings = Def.settings(
+  resolvers := Seq("Artifactory klarrio" at "https://klarrio.jfrog.io/klarrio/jvm-libs/"),
+  externalResolvers := Resolver.combineDefaultResolvers(resolvers.value.toVector, jcenter = false, mavenCentral = false),
+  credentials += Credentials(Path.userHome / ".sbt" / ".klarrio-credentials"),
+  publishTo := resolvers.value.find(_.name == "Artifactory klarrio")
 )
 
 lazy val scaladocSettings = Def.settings(

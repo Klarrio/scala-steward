@@ -12,3 +12,10 @@ addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.3")
 addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.2.0")
 addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.3.2")
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.0")
+
+// only resolve from Klarrio JFrog
+resolvers := Seq(
+  "Artifactory klarrio" at "https://klarrio.jfrog.io/klarrio/jvm-libs/"
+)
+externalResolvers := Resolver.combineDefaultResolvers(resolvers.value.toVector, mavenCentral = false)
+credentials += Credentials(Path.userHome / ".ivy2" / ".klarrio-credentials")
