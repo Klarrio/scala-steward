@@ -84,6 +84,7 @@ lazy val benchmark = myCrossProject("benchmark")
 lazy val core = myCrossProject("core")
   .enablePlugins(BuildInfoPlugin, JavaAppPackaging, DockerPlugin)
   .settings(dockerSettings)
+  .settings(publishToKlarrioSettings)
   .settings(
     libraryDependencies ++= Seq(
       Dependencies.bcprovJdk15to18,
